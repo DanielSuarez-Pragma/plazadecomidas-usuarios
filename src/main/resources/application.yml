@@ -1,0 +1,12 @@
+server:
+  port: 8090
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/usuarios-PlazaComidas
+    username: postgres
+    password: dan34981
+
+jpa:
+  hibernate:
+    ddl-auto: update
