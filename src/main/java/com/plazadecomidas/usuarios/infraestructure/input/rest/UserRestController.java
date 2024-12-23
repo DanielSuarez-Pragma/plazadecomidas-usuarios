@@ -1,8 +1,8 @@
 package com.plazadecomidas.usuarios.infraestructure.input.rest;
 
-import com.plazadecomidas.usuarios.application.dto.request.UserRequestDto;
-import com.plazadecomidas.usuarios.application.dto.response.UserResponseDto;
-import com.plazadecomidas.usuarios.application.handler.IUserHandler;
+import com.plazadecomidas.usuarios.application.dto.UserListRequest;
+import com.plazadecomidas.usuarios.application.dto.UserListResponse;
+import com.plazadecomidas.usuarios.application.handler.IUserListHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,19 +11,31 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 @RequiredArgsConstructor
 public class UserRestController {
-    private final IUserHandler userHandler;
 
-    @PostMapping("/")
-    public ResponseEntity saveUser(@RequestBody UserRequestDto userRequestDto) {
-        userHandler.saveUser(userRequestDto);
+    private final IUserListHandler userListHandler;
+
+    @PostMapping("/saveUser")
+    public ResponseEntity<Void> saveUser(@RequestBody UserListRequest userListRequest) {
+        userListHandler.saveUserInList(userListRequest);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @GetMapping("/")
-    public ResponseEntity<List<UserResponseDto>> getAllUsers() {
-        return ResponseEntity.ok(userHandler.getAllUsers());
+    @GetMapping("/getUsers")
+    public ResponseEntity<List<UserListResponse>> getAllUsersFromList() {
+        return ResponseEntity.ok(userListHandler.getAllUserFromList());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<UserListResponse> getUserFromList(@PathVariable Long id) {
+        return ResponseEntity.ok(userListHandler.getUserFromList(id));
+    }
+
+    @DeleteMapping("/{userId}")
+    public ResponseEntity<Void> deleteUser(@PathVariable Long userId) {
+        userListHandler.deleteUserFromList(userId);
+        return ResponseEntity.noContent().build();
     }
 }

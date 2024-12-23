@@ -5,11 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+
+import java.time.LocalDate;
 
 @Entity
-@Table(name = "usuarios")
+@Table(name = "users")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -19,29 +19,43 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 50)
+    @Column(name = "name")
     private String firstName;
 
-    @Column(nullable = false, length = 50)
+    @Column(name = "lastname")
     private String lastName;
 
-    @Column(nullable = false, unique = true, length = 20)
+    @Column(name = "document_number")
     private String documentNumber;
 
-    @Column(nullable = false, length = 15)
+    @Column(name = "phone_number")
     private String phoneNumber;
 
-    @Column(nullable = false)
-    private String dateOfBirth;
+    @Column(name = "birth_date")
+    private LocalDate dateOfBirth;
 
-    @Column(nullable = false, unique = true, length = 100)
+    @Column(name ="email")
     private String email;
 
-    @Column(nullable = false)
+    @Column(name = "password")
     private String password;
 
     @ManyToOne
-    //@OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "role_id", nullable = false)
+    @JoinColumn(name = "role_id", referencedColumnName = "id")
     private RoleEntity role;
+
+    @Override
+    public String toString() {
+        return "UserEntity{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", documentNumber='" + documentNumber + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", dateOfBirth='" + dateOfBirth + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", role=" + role +
+                '}';
+    }
 }

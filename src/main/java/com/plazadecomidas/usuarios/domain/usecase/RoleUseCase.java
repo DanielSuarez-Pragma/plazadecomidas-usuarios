@@ -17,11 +17,6 @@ public class RoleUseCase implements IRoleServicePort {
     }
 
     @Override
-    public Role getRoleById(Long id) {
-        return rolePersistencePort.getRoleById(id);
-    }
-
-    @Override
     public Role saveRole(Role role) {
         return rolePersistencePort.saveRole(role);
     }
@@ -32,7 +27,12 @@ public class RoleUseCase implements IRoleServicePort {
     }
 
     @Override
-    public void deleteRoleById(Long id) {
+    public Role getRole(Long id) {
+        return rolePersistencePort.getRoleById(id);
+    }
+
+    @Override
+    public void deleteRole(Long id) {
         rolePersistencePort.deleteRoleById(id);
     }
 }

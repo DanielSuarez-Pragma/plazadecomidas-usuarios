@@ -21,5 +21,20 @@ public class User {
     private LocalDate birthDate;
     private String email;
     private String password;
-    private Role roleId; // Relación con Rol
+    private Long roleId; // Relación con Rol
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", documentNumber='" + documentNumber + '\'' +
+                ", phone='" + phone + '\'' +
+                ", birthDate=" + birthDate +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", roleId=" + roleId +
+                '}';
+    }
 }

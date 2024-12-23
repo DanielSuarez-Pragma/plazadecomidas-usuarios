@@ -33,4 +33,9 @@ public class RoleJpaAdapter implements IRolePersistencePort {
         }
         return roleEntityMapper.toRoleList(roleEntityList);
     }
+
+    @Override
+    public void deleteRoleById(Long id) {
+        roleRepository.deleteById(id);
+    }
 }

@@ -3,6 +3,7 @@ package com.plazadecomidas.usuarios.infraestructure.configuration;
 import com.plazadecomidas.usuarios.domain.api.IRoleServicePort;
 import com.plazadecomidas.usuarios.domain.api.IUserServicePort;
 import com.plazadecomidas.usuarios.domain.spi.IRolePersistencePort;
+import com.plazadecomidas.usuarios.domain.spi.IUserPasswordEncoderPort;
 import com.plazadecomidas.usuarios.domain.spi.IUserPersistencePort;
 import com.plazadecomidas.usuarios.domain.usecase.RoleUseCase;
 import com.plazadecomidas.usuarios.domain.usecase.UserUseCase;
@@ -12,11 +13,11 @@ import com.plazadecomidas.usuarios.infraestructure.out.jpa.mapper.RoleEntityMapp
 import com.plazadecomidas.usuarios.infraestructure.out.jpa.mapper.UserEntityMapper;
 import com.plazadecomidas.usuarios.infraestructure.out.jpa.repository.IRoleRepository;
 import com.plazadecomidas.usuarios.infraestructure.out.jpa.repository.IUserRepository;
+import com.plazadecomidas.usuarios.infraestructure.out.passwordencode.PasswordEncoderAdapter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+
 
 @Configuration
 @RequiredArgsConstructor
@@ -27,8 +28,8 @@ public class BeanConfiguration {
     private final RoleEntityMapper roleEntityMapper;
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+    public IUserPasswordEncoderPort userPasswordEncoderPort() {
+        return new PasswordEncoderAdapter();
     }
 
     @Bean
@@ -38,7 +39,7 @@ public class BeanConfiguration {
 
     @Bean
     public IUserServicePort userServicePort() {
-        return new UserUseCase(userPersistencePort(), passwordEncoder());
+        return new UserUseCase(userPersistencePort(), rolePersistencePort(),userPasswordEncoderPort());
     }
 
     @Bean
