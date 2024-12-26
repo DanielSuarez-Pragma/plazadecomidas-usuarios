@@ -13,7 +13,28 @@ import java.util.List;
         unmappedSourcePolicy = ReportingPolicy.IGNORE,
         uses = {RoleDtoMapper.class})
 public interface UserListResponseMapper {
-    UserListResponse toResponse(User user, RoleDto roleDto);
+    default UserListResponse toResponse(User user, RoleDto roleDto) {
+        // Verificar si el usuario es nulo
+        if (user == null) {
+            return null;
+        }
+
+        // Verificar si el roleDto es nulo
+        if (roleDto == null) {
+            return null;
+        }
+        UserListResponse response = new UserListResponse();
+        response.setFirstName(user.getFirstName());
+        response.setLastName(user.getLastName());
+        response.setDocumentNumber(user.getDocumentNumber());
+        response.setPhone(user.getPhone());
+        response.setBirthDate(user.getBirthDate());
+        response.setEmail(user.getEmail());
+        response.setRoleId(user.getRoleId());
+
+        return response;
+    }
+
 
     default List<UserListResponse> toResponseList(List<User> userList) {
         return userList.stream().map(user -> {

@@ -1,5 +1,5 @@
-server:
-  port: 8090
+erver:
+  port: 8080
 
 spring:
   datasource:

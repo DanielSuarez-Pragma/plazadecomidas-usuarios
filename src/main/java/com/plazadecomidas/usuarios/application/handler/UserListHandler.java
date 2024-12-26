@@ -51,8 +51,6 @@ public class UserListHandler implements IUserListHandler {
 
     @Override
     public void deleteUserFromList(Long id) {
-        User user = userServicePort.getUser(id);
-        roleServicePort.deleteRole(user.getRoleId());
         userServicePort.deleteUserById(id);
     }
 }

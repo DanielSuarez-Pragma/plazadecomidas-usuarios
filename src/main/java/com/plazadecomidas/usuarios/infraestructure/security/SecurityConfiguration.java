@@ -1,4 +1,4 @@
-package com.plazadecomidas.usuarios.infraestructure.configuration.security;
+package com.plazadecomidas.usuarios.infraestructure.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
