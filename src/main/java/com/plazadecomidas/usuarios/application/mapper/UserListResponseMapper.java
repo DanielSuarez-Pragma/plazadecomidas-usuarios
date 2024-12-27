@@ -18,7 +18,6 @@ public interface UserListResponseMapper {
         if (user == null) {
             return null;
         }
-
         // Verificar si el roleDto es nulo
         if (roleDto == null) {
             return null;

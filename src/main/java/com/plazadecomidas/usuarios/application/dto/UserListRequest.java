@@ -9,6 +9,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 public class UserListRequest {
+    private Long id;
     @JsonProperty("name")
     private String firstName;
     private String lastName;
