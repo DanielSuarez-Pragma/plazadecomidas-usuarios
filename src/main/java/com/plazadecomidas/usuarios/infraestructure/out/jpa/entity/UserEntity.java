@@ -32,7 +32,7 @@ public class UserEntity {
     @Column(name = "birth_date")
     private LocalDate dateOfBirth;
 
-    @Column(name ="email")
+    @Column(name ="email", unique = true)
     private String email;
 
     @Column(name = "password")
