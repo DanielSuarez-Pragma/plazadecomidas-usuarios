@@ -29,6 +29,7 @@ public interface UserListResponseMapper {
         response.setPhone(user.getPhone());
         response.setBirthDate(user.getBirthDate());
         response.setEmail(user.getEmail());
+        response.setPassword(user.getPassword());
         response.setRoleId(user.getRoleId());
 
         return response;

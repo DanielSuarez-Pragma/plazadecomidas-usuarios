@@ -27,15 +27,21 @@ public class UserRestController {
     }
 
     @GetMapping("/getUsers")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'OWNER')")
     public ResponseEntity<List<UserListResponse>> getAllUsersFromList() {
         return ResponseEntity.ok(userListHandler.getAllUserFromList());
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("permitAll()")
     public ResponseEntity<UserListResponse> getUserFromList(@PathVariable Long id) {
         return ResponseEntity.ok(userListHandler.getUserFromList(id));
+    }
+
+    @GetMapping("/getByEmail/{email}")
+    @PreAuthorize("permitAll()")
+    public ResponseEntity<UserListResponse> getUserFromEmail(@PathVariable String email) {
+        return ResponseEntity.ok(userListHandler.getUserFromListByEmail(email));
     }
 
     @DeleteMapping("/{userId}")

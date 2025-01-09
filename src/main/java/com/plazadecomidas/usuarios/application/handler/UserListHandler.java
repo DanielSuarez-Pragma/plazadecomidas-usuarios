@@ -50,6 +50,12 @@ public class UserListHandler implements IUserListHandler {
     }
 
     @Override
+    public UserListResponse getUserFromListByEmail(String email) {
+        User user = userServicePort.getUserByEmail(email);
+        return userListResponseMapper.toResponse(user, roleDtoMapper.toDto(roleServicePort.getRole(user.getRoleId())));
+    }
+
+    @Override
     public void deleteUserFromList(Long id) {
         userServicePort.deleteUserById(id);
     }

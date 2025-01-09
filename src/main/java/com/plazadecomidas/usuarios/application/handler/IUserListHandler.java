@@ -10,6 +10,6 @@ public interface IUserListHandler {
     void saveUserInList(UserListRequest userListRequest);
     List<UserListResponse> getAllUserFromList();
     UserListResponse getUserFromList(Long id);
+    UserListResponse getUserFromListByEmail(String email);
     void deleteUserFromList(Long id);
-
 }

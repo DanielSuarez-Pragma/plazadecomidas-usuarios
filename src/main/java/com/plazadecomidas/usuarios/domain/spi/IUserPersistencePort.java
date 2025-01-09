@@ -8,5 +8,6 @@ public interface IUserPersistencePort {
     void saveUser(User user);// Guarda un usuario
     List<User> getAllUsers(); // Obtiene todos los usuarios
     User getUser(Long id);//Obtener usuario por ID
+    User getUserByEmail(String email);
     void deleteUserById(Long id);//Eliminar usuario por id
 }
