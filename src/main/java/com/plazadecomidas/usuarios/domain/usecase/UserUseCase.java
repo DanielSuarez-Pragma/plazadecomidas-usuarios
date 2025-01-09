@@ -1,9 +1,7 @@
 package com.plazadecomidas.usuarios.domain.usecase;
 
 import com.plazadecomidas.usuarios.domain.api.IUserServicePort;
-import com.plazadecomidas.usuarios.domain.model.Role;
 import com.plazadecomidas.usuarios.domain.model.User;
-import com.plazadecomidas.usuarios.domain.spi.IRolePersistencePort;
 import com.plazadecomidas.usuarios.domain.spi.IUserPasswordEncoderPort;
 import com.plazadecomidas.usuarios.domain.spi.IUserPersistencePort;
 
@@ -13,21 +11,34 @@ import java.util.List;
 
 public class UserUseCase implements IUserServicePort {
     private final IUserPersistencePort userPersistencePort;
-    private final IRolePersistencePort rolePersistencePort;
     private final IUserPasswordEncoderPort userPasswordEncoderPort;
 
-    public UserUseCase(IUserPersistencePort userPersistencePort, IRolePersistencePort rolePersistencePort, IUserPasswordEncoderPort userPasswordEncoderPort) {
+    public UserUseCase(IUserPersistencePort userPersistencePort, IUserPasswordEncoderPort userPasswordEncoderPort) {
         this.userPersistencePort = userPersistencePort;
-        this.rolePersistencePort = rolePersistencePort;
         this.userPasswordEncoderPort = userPasswordEncoderPort;
     }
 
     @Override
-    public void saveUser(User user) {
-        validateUserData(user);
-        validateRole(user);
-        user.setPassword(userPasswordEncoderPort.encodePassword(user.getPassword()));
-        userPersistencePort.saveUser(user);
+    public void saveUserOwner(User user) {
+        if(user.getRoleId() == 1){
+            validateUserData(user);
+            user.setPassword(userPasswordEncoderPort.encodePassword(user.getPassword()));
+            userPersistencePort.saveUserOwner(user);
+        }else{
+            throw new IllegalArgumentException("El rol especificado no existe");
+        }
+
+    }
+
+    @Override
+    public void saveUserEmployee(User user) {
+        if(user.getRoleId() == 2){
+            validateUserData(user);
+            user.setPassword(userPasswordEncoderPort.encodePassword(user.getPassword()));
+            userPersistencePort.saveUserOwner(user);
+        }else{
+            throw new IllegalArgumentException("El rol especificado no existe");
+        }
     }
 
     @Override
@@ -93,18 +104,10 @@ public class UserUseCase implements IUserServicePort {
         }
     }
 
-    // Método auxiliar para validar si el usuario es mayor de edad
+    //validar si el usuario es mayor de edad
     private boolean isAdult(LocalDate birthDate) {
         LocalDate today = LocalDate.now();
         return Period.between(birthDate, today).getYears() >= 18;
-    }
-
-    private void validateRole(User user){
-        Role role = rolePersistencePort.getRoleById(user.getRoleId());
-        if (role == null) {
-            throw new IllegalArgumentException("El rol especificado no existe");
-        }
-        user.setRoleId(user.getRoleId());
     }
 
 }

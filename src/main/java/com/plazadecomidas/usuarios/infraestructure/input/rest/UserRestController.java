@@ -19,10 +19,17 @@ public class UserRestController {
 
     private final IUserListHandler userListHandler;
 
-    @PostMapping("/saveUser")
+    @PostMapping("/saveOwner")
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Void> saveUser(@RequestBody UserListRequest userListRequest) {
-        userListHandler.saveUserInList(userListRequest);
+        userListHandler.saveUserOwnerInList(userListRequest);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @PostMapping("/saveEmployee")
+    @PreAuthorize("hasAuthority('OWNER')")
+    public ResponseEntity<Void> saveEmployee(@RequestBody UserListRequest userListRequest) {
+        userListHandler.saveUserEmployeeInList(userListRequest);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 

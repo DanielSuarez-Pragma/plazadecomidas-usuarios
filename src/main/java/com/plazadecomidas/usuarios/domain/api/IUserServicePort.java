@@ -5,7 +5,8 @@ import com.plazadecomidas.usuarios.domain.model.User;
 import java.util.List;
 
 public interface IUserServicePort {
-    void saveUser(User user);// Guarda un usuario
+    void saveUserOwner(User user);// Guarda un usuario owner
+    void saveUserEmployee(User user);
     User getUser(Long id);//Obtener usuario por ID
     User getUserByEmail(String email);
     List<User> getAllUsers(); // Obtiene todos los usuarios

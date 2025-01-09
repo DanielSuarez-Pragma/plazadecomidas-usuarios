@@ -7,7 +7,8 @@ import java.util.List;
 
 public interface IUserListHandler {
 
-    void saveUserInList(UserListRequest userListRequest);
+    void saveUserOwnerInList(UserListRequest userListRequest);
+    void saveUserEmployeeInList(UserListRequest userListRequest);
     List<UserListResponse> getAllUserFromList();
     UserListResponse getUserFromList(Long id);
     UserListResponse getUserFromListByEmail(String email);

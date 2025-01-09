@@ -1,6 +1,6 @@
 package com.plazadecomidas.usuarios.infraestructure.security;
 
-import com.plazadecomidas.usuarios.infraestructure.security.filter.jwtTokenValidator;
+import com.plazadecomidas.usuarios.infraestructure.security.filter.JwtTokenValidator;
 import com.plazadecomidas.usuarios.infraestructure.security.util.JwtUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -36,7 +36,7 @@ public class SecurityConfiguration {
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .httpBasic(Customizer.withDefaults())
-                .addFilterBefore(new jwtTokenValidator(jwtUtils), BasicAuthenticationFilter.class)
+                .addFilterBefore(new JwtTokenValidator(jwtUtils), BasicAuthenticationFilter.class)
                 .build();
     }
 

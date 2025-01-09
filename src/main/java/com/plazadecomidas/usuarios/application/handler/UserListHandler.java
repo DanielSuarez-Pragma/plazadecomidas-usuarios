@@ -30,12 +30,19 @@ public class UserListHandler implements IUserListHandler {
     }
 
     @Override
-    public void saveUserInList(UserListRequest userListRequest) {
+    public void saveUserOwnerInList(UserListRequest userListRequest) {
         // Convertir el DTO en un objeto del dominio
         User user = userListRequestMapper.toUser(userListRequest);
         // Asignar el roleId directamente desde el request
         user.setRoleId(userListRequest.getRole());
-        userServicePort.saveUser(user);
+        userServicePort.saveUserOwner(user);
+    }
+
+    @Override
+    public void saveUserEmployeeInList(UserListRequest userListRequest) {
+        User user = userListRequestMapper.toUser(userListRequest);
+        user.setRoleId(userListRequest.getRole());
+        userServicePort.saveUserEmployee(user);
     }
 
     @Override
