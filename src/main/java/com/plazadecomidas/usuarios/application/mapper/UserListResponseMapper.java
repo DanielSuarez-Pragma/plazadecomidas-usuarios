@@ -23,6 +23,7 @@ public interface UserListResponseMapper {
             return null;
         }
         UserListResponse response = new UserListResponse();
+        response.setId(user.getId());
         response.setFirstName(user.getFirstName());
         response.setLastName(user.getLastName());
         response.setDocumentNumber(user.getDocumentNumber());
