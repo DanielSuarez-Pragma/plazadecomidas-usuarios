@@ -46,6 +46,13 @@ public class UserListHandler implements IUserListHandler {
     }
 
     @Override
+    public void saveUserClientInList(UserListRequest userListRequest) {
+        User user = userListRequestMapper.toUser(userListRequest);
+        user.setRoleId(userListRequest.getRole());
+        userServicePort.saveUserClient(user);
+    }
+
+    @Override
     public List<UserListResponse> getAllUserFromList() {
         return userListResponseMapper.toResponseList(userServicePort.getAllUsers());
     }

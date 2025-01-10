@@ -9,6 +9,8 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.List;
 
+import static com.plazadecomidas.usuarios.domain.constants.ErrorMessages.ROLE_NOT_FOUND;
+
 public class UserUseCase implements IUserServicePort {
     private final IUserPersistencePort userPersistencePort;
     private final IUserPasswordEncoderPort userPasswordEncoderPort;
@@ -25,7 +27,7 @@ public class UserUseCase implements IUserServicePort {
             user.setPassword(userPasswordEncoderPort.encodePassword(user.getPassword()));
             userPersistencePort.saveUserOwner(user);
         }else{
-            throw new IllegalArgumentException("El rol especificado no existe");
+            throw new IllegalArgumentException(ROLE_NOT_FOUND);
         }
 
     }
@@ -35,9 +37,20 @@ public class UserUseCase implements IUserServicePort {
         if(user.getRoleId() == 2){
             validateUserData(user);
             user.setPassword(userPasswordEncoderPort.encodePassword(user.getPassword()));
-            userPersistencePort.saveUserOwner(user);
+            userPersistencePort.saveUserEmployee(user);
         }else{
-            throw new IllegalArgumentException("El rol especificado no existe");
+            throw new IllegalArgumentException(ROLE_NOT_FOUND);
+        }
+    }
+
+    @Override
+    public void saveUserClient(User user) {
+        if(user.getRoleId() == 3){
+            validateUserData(user);
+            user.setPassword(userPasswordEncoderPort.encodePassword(user.getPassword()));
+            userPersistencePort.saveUserClient(user);
+        }else{
+            throw new IllegalArgumentException(ROLE_NOT_FOUND);
         }
     }
 

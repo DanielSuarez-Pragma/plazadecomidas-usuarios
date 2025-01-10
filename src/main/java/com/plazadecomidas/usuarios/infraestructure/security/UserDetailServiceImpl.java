@@ -95,4 +95,15 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
         return new UsernamePasswordAuthenticationToken(username, userDetails.getPassword(), userDetails.getAuthorities());
     }
+
+    public AuthResponse registerClient(String email, String password) {
+
+        Authentication authentication = this.authenticate(email, password);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        String accessToken = jwtUtils.createToken(authentication);
+
+        return new AuthResponse(email, "User loged successfuly", accessToken, true);
+
+    }
 }

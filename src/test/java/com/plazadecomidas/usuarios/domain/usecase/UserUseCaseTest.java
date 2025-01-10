@@ -123,15 +123,41 @@ class UserUseCaseTest {
         userEmployee.setRoleId(2L); // Rol de empleado
 
         when(userPasswordEncoderPort.encodePassword(userEmployee.getPassword())).thenReturn(userEmployee.getPassword());
-        doNothing().when(userPersistencePort).saveUserOwner(userEmployee);
+        doNothing().when(userPersistencePort).saveUserEmployee(userEmployee);
 
         // Act
         userUseCase.saveUserEmployee(userEmployee);
 
         // Assert
         verify(userPasswordEncoderPort).encodePassword(userEmployee.getPassword());
-        verify(userPersistencePort).saveUserOwner(userEmployee);
+        verify(userPersistencePort).saveUserEmployee(userEmployee);
     }
+
+    @Test
+    void saveUserClient_Success() {
+        // Arrange
+        User userClient = new User();
+        userClient.setFirstName("Cliente");
+        userClient.setLastName("Prueba");
+        userClient.setDocumentNumber("987654321");
+        userClient.setPhone("+573001234567");
+        userClient.setBirthDate(LocalDate.of(1992, 2, 2));
+        userClient.setEmail("cliente@plaza.com");
+        userClient.setPassword("password123");
+        userClient.setRoleId(3L); // Rol de cliente
+
+        when(userPasswordEncoderPort.encodePassword(userClient.getPassword())).thenReturn(userClient.getPassword());
+        doNothing().when(userPersistencePort).saveUserClient(userClient);
+
+        // Act
+        userUseCase.saveUserClient(userClient);
+
+        // Assert
+        verify(userPasswordEncoderPort).encodePassword(userClient.getPassword());
+        verify(userPersistencePort).saveUserClient(userClient);
+    }
+
+
 
     @Test
     void saveUserEmployee_InvalidRole_Failure() {

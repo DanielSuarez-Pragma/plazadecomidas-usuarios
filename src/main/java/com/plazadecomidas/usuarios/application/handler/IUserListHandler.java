@@ -9,6 +9,7 @@ public interface IUserListHandler {
 
     void saveUserOwnerInList(UserListRequest userListRequest);
     void saveUserEmployeeInList(UserListRequest userListRequest);
+    void saveUserClientInList(UserListRequest userListRequest);
     List<UserListResponse> getAllUserFromList();
     UserListResponse getUserFromList(Long id);
     UserListResponse getUserFromListByEmail(String email);
