@@ -1,11 +1,9 @@
 package com.plazadecomidas.usuarios.infraestructure.configuration;
 
-import com.plazadecomidas.usuarios.domain.api.IRoleServicePort;
 import com.plazadecomidas.usuarios.domain.api.IUserServicePort;
 import com.plazadecomidas.usuarios.domain.spi.IRolePersistencePort;
 import com.plazadecomidas.usuarios.domain.spi.IUserPasswordEncoderPort;
 import com.plazadecomidas.usuarios.domain.spi.IUserPersistencePort;
-import com.plazadecomidas.usuarios.domain.usecase.RoleUseCase;
 import com.plazadecomidas.usuarios.domain.usecase.UserUseCase;
 import com.plazadecomidas.usuarios.infraestructure.out.jpa.adapter.RoleJpaAdapter;
 import com.plazadecomidas.usuarios.infraestructure.out.jpa.adapter.UserJpaAdapter;
@@ -39,7 +37,7 @@ public class BeanConfiguration {
 
     @Bean
     public IUserServicePort userServicePort() {
-        return new UserUseCase(userPersistencePort(),userPasswordEncoderPort());
+        return new UserUseCase(userPersistencePort(),rolePersistencePort(),userPasswordEncoderPort());
     }
 
     @Bean
@@ -47,8 +45,4 @@ public class BeanConfiguration {
         return new RoleJpaAdapter(roleRepository, roleEntityMapper);
     }
 
-    @Bean
-    public IRoleServicePort roleServicePort(){
-        return new RoleUseCase(rolePersistencePort());
-    }
 }

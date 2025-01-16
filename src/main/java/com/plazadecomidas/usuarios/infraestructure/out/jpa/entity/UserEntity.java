@@ -27,10 +27,10 @@ public class UserEntity {
     private String documentNumber;
 
     @Column(name = "phone_number")
-    private String phoneNumber;
+    private String phone;
 
     @Column(name = "birth_date")
-    private LocalDate dateOfBirth;
+    private LocalDate birthDate;
 
     @Column(name ="email", unique = true)
     private String email;

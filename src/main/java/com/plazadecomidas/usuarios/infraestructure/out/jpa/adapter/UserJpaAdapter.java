@@ -2,7 +2,6 @@ package com.plazadecomidas.usuarios.infraestructure.out.jpa.adapter;
 
 import com.plazadecomidas.usuarios.domain.model.User;
 import com.plazadecomidas.usuarios.domain.spi.IUserPersistencePort;
-import com.plazadecomidas.usuarios.infraestructure.exception.NoDataFoundException;
 import com.plazadecomidas.usuarios.infraestructure.out.jpa.entity.UserEntity;
 import com.plazadecomidas.usuarios.infraestructure.out.jpa.mapper.UserEntityMapper;
 import com.plazadecomidas.usuarios.infraestructure.out.jpa.repository.IUserRepository;
@@ -34,20 +33,17 @@ public class UserJpaAdapter implements IUserPersistencePort {
 
     @Override
     public User getUser(Long id) {
-        return userEntityMapper.toUser(userRepository.findById(id).orElseThrow(NoDataFoundException::new));
+        return userEntityMapper.toUser(userRepository.findUserEntityById(id));
     }
 
     @Override
     public User getUserByEmail(String email) {
-        return userEntityMapper.toUser(userRepository.findUserEntityByEmail(email).orElseThrow(NoDataFoundException::new));
+        return userEntityMapper.toUser(userRepository.findByEmail(email));
     }
 
     @Override
     public List<User> getAllUsers() {
         List<UserEntity> userEntityList = userRepository.findAll();
-        if (userEntityList.isEmpty()){
-            throw new NoDataFoundException();
-        }
         return userEntityMapper.toUserList(userEntityList);
     }
 

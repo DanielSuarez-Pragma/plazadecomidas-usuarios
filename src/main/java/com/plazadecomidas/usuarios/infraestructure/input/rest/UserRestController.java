@@ -21,7 +21,7 @@ public class UserRestController {
 
     @PostMapping("/saveOwner")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<Void> saveUser(@RequestBody UserListRequest userListRequest) {
+    public ResponseEntity<Void> saveOwner(@RequestBody UserListRequest userListRequest) {
         userListHandler.saveUserOwnerInList(userListRequest);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

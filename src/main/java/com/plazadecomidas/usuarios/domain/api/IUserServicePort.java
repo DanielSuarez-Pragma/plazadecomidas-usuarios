@@ -12,6 +12,4 @@ public interface IUserServicePort {
     User getUserByEmail(String email);
     List<User> getAllUsers(); // Obtiene todos los usuarios
     void deleteUserById(Long id);//Eliminar usuario por id
-
-
 }

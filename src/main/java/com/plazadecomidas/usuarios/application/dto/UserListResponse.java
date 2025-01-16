@@ -15,6 +15,5 @@ public class UserListResponse {
     private String phone;
     private LocalDate birthDate;
     private String email;
-    private String password;
-    private Long roleId;
+    private RoleDto role;
 }

@@ -1,6 +1,5 @@
 package com.plazadecomidas.usuarios.application.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,7 +9,6 @@ import java.time.LocalDate;
 @Setter
 public class UserListRequest {
     private Long id;
-    @JsonProperty("name")
     private String firstName;
     private String lastName;
     private String documentNumber;
@@ -18,6 +16,4 @@ public class UserListRequest {
     private LocalDate birthDate;
     private String email;
     private String password;
-    @JsonProperty("roleId")
-    private Long role;
 }

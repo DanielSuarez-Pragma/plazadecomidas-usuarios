@@ -5,10 +5,9 @@ import org.springframework.lang.NonNull;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
-
 @Repository
 public interface IUserRepository extends JpaRepository<UserEntity, Long> {
-    Optional<UserEntity> findUserEntityByEmail(@NonNull String email);
     void deleteById(@NonNull Long id);
+    UserEntity findByEmail(@NonNull String email);
+    UserEntity findUserEntityById(@NonNull Long id);
 }

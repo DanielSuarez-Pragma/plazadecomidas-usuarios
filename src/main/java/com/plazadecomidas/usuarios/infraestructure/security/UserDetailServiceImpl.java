@@ -38,7 +38,11 @@ public class UserDetailServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        UserEntity userEntity = userRepository.findUserEntityByEmail(username).orElseThrow(()->new UsernameNotFoundException("El usuario "+username+" no existe"));
+        UserEntity userEntity = userRepository.findByEmail(username);
+
+        if (userEntity == null) {
+            throw new UsernameNotFoundException("El usuario "+username+" no existe");
+        }
 
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
 
@@ -55,10 +59,10 @@ public class UserDetailServiceImpl implements UserDetailsService {
             case 1:
                 authorities.add(new SimpleGrantedAuthority("OWNER"));
                 break;
-            case 3:
+            case 2:
                 authorities.add(new SimpleGrantedAuthority("EMPLOYEE"));
                 break;
-            case 4:
+            case 3:
                 authorities.add(new SimpleGrantedAuthority("CLIENT"));
                 break;
             default:
