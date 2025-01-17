@@ -1,7 +1,7 @@
 package com.plazadecomidas.usuarios.infraestructure.input.rest;
 
-import com.plazadecomidas.usuarios.application.dto.UserListRequest;
-import com.plazadecomidas.usuarios.application.dto.UserListResponse;
+import com.plazadecomidas.usuarios.application.dto.users.UserListRequest;
+import com.plazadecomidas.usuarios.application.dto.users.UserListResponse;
 import com.plazadecomidas.usuarios.application.handler.IUserListHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -27,14 +27,14 @@ public class UserRestController {
     }
 
     @PostMapping("/saveEmployee")
-    @PreAuthorize("hasAuthority('OWNER')")
+    @PreAuthorize("hasAuthority('PROPIETARIO')")
     public ResponseEntity<Void> saveEmployee(@RequestBody UserListRequest userListRequest) {
         userListHandler.saveUserEmployeeInList(userListRequest);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @GetMapping("/getUsers")
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'OWNER')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'PROPIETARIO')")
     public ResponseEntity<List<UserListResponse>> getAllUsersFromList() {
         return ResponseEntity.ok(userListHandler.getAllUserFromList());
     }

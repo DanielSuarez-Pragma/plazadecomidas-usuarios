@@ -1,9 +1,8 @@
 package com.plazadecomidas.usuarios.application.mapper;
 
-import com.plazadecomidas.usuarios.application.dto.UserListResponse;
+import com.plazadecomidas.usuarios.application.dto.users.UserListResponse;
 import com.plazadecomidas.usuarios.domain.model.User;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
@@ -17,8 +16,23 @@ public interface UserListResponseMapper {
 
     RoleDtoMapper INSTANCE = Mappers.getMapper(RoleDtoMapper.class);
 
-    @Mapping(target = "firstName", source = "firstName")
-    UserListResponse toResponse(User user);
+    default UserListResponse toResponse(User user) {
+        if ( user == null ) {
+            return null;
+        }
+
+        UserListResponse userListResponse = new UserListResponse();
+        userListResponse.setId(user.getId());
+        userListResponse.setFirstName(user.getFirstName());
+        userListResponse.setLastName(user.getLastName());
+        userListResponse.setDocumentNumber(user.getDocumentNumber());
+        userListResponse.setBirthDate(user.getBirthDate());
+        userListResponse.setEmail(user.getEmail());
+        userListResponse.setRole(INSTANCE.toRoleDto(user.getRole()));
+
+
+        return userListResponse;
+    }
 
 
     default List<UserListResponse> toResponseList(List<User> userList) {

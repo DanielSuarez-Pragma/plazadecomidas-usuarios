@@ -19,13 +19,4 @@ public class RoleEntity {
     private Long id;
     private String name;
     private String description;
-
-    @Override
-    public String toString() {
-        return "RoleEntity{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                '}';
-    }
 }

@@ -1,10 +1,10 @@
 package com.plazadecomidas.usuarios.infraestructure.input.rest;
 
-import com.plazadecomidas.usuarios.application.dto.UserListRequest;
+import com.plazadecomidas.usuarios.application.dto.auth.AuthLoginRequestDto;
+import com.plazadecomidas.usuarios.application.dto.auth.AuthResponseDto;
+import com.plazadecomidas.usuarios.application.dto.users.UserListRequest;
+import com.plazadecomidas.usuarios.application.handler.IAuthHandler;
 import com.plazadecomidas.usuarios.application.handler.IUserListHandler;
-import com.plazadecomidas.usuarios.infraestructure.security.UserDetailServiceImpl;
-import com.plazadecomidas.usuarios.infraestructure.security.dto.AuthLoginRequest;
-import com.plazadecomidas.usuarios.infraestructure.security.dto.AuthResponse;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,19 +21,19 @@ import org.springframework.web.bind.annotation.RestController;
 @PreAuthorize("permitAll()")
 public class AuthenticationController {
 
-    private UserDetailServiceImpl userDetailService;
     private final IUserListHandler userListHandler;
+    private final IAuthHandler authHandler;
 
     @PostMapping("/log-in")
-    public ResponseEntity<AuthResponse> login(@RequestBody @Valid AuthLoginRequest userRequest){
-        return new ResponseEntity<>(this.userDetailService.loginUser(userRequest), HttpStatus.OK);
+    public ResponseEntity<AuthResponseDto> login(@RequestBody @Valid AuthLoginRequestDto userRequest){
+        return new ResponseEntity<>(authHandler.loginUser(userRequest), HttpStatus.OK);
     }
 
     @PostMapping("/register")
     @PreAuthorize("permitAll()")
-    public ResponseEntity<AuthResponse> saveClient(@RequestBody UserListRequest userListRequest) {
+    public ResponseEntity<AuthResponseDto> saveClient(@RequestBody UserListRequest userListRequest) {
         userListHandler.saveUserClientInList(userListRequest);
-        return new ResponseEntity<>(this.userDetailService.registerClient(userListRequest.getEmail(), userListRequest.getPassword()), HttpStatus.OK);
+        return new ResponseEntity<>(authHandler.registerClient(userListRequest.getEmail(), userListRequest.getPassword()), HttpStatus.OK);
     }
 
 }

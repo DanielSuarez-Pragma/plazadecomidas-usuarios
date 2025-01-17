@@ -1,4 +1,4 @@
-package com.plazadecomidas.usuarios.application.dto;
+package com.plazadecomidas.usuarios.application.dto.users;
 
 import lombok.Getter;
 import lombok.Setter;

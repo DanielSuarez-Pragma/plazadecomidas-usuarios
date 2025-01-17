@@ -1,5 +1,6 @@
 package com.plazadecomidas.usuarios.infraestructure.security;
 
+import com.plazadecomidas.usuarios.domain.usecase.AuthUseCase;
 import com.plazadecomidas.usuarios.infraestructure.security.filter.JwtTokenValidator;
 import com.plazadecomidas.usuarios.infraestructure.security.util.JwtUtils;
 import org.springframework.context.annotation.Bean;
@@ -46,9 +47,9 @@ public class SecurityConfiguration {
     }
 
     @Bean
-    public AuthenticationProvider authenticationProvider(UserDetailServiceImpl userDetailsService){
+    public AuthenticationProvider authenticationProvider(AuthUseCase authUseCase){
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-        provider.setUserDetailsService(userDetailsService);
+        provider.setUserDetailsService(authUseCase);
         provider.setPasswordEncoder(passwordEncoder());
         return provider;
     }

@@ -14,4 +14,9 @@ public class PasswordEncoderAdapter implements IUserPasswordEncoderPort {
     public String encodePassword(String password) {
         return passwordEncoder.encode(password);
     }
+
+    @Override
+    public boolean matches(CharSequence rawPassword, String encodedPassword) {
+        return passwordEncoder.matches(rawPassword, encodedPassword);
+    }
 }

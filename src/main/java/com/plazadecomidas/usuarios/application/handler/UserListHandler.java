@@ -1,7 +1,7 @@
 package com.plazadecomidas.usuarios.application.handler;
 
-import com.plazadecomidas.usuarios.application.dto.UserListRequest;
-import com.plazadecomidas.usuarios.application.dto.UserListResponse;
+import com.plazadecomidas.usuarios.application.dto.users.UserListRequest;
+import com.plazadecomidas.usuarios.application.dto.users.UserListResponse;
 import com.plazadecomidas.usuarios.application.mapper.UserListRequestMapper;
 import com.plazadecomidas.usuarios.application.mapper.UserListResponseMapper;
 import com.plazadecomidas.usuarios.domain.api.IUserServicePort;

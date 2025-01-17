@@ -84,16 +84,16 @@ public class UserUseCase implements IUserServicePort {
 
     private void validateUserData(User user) {
         // Validar nombre
-        if (user.getFirstName() == null || user.getFirstName().length() < MINIMUM_NAME_LENGTH) {
+        if (user.getFirstName() == null || user.getFirstName().length() < MIN_NAME_LENGTH) {
             throw new ValidationUserException(NAME_BAD_LENGTH);
         }
 
         // Validar apellido
-        if (user.getLastName() == null || user.getLastName().length() < MINIMUM_LASTNAME_LENGTH) {
+        if (user.getLastName() == null || user.getLastName().length() < MIN_LASTNAME_LENGTH) {
             throw new ValidationUserException(LASTNAME_BAD_LENGTH);
         }
         // Validar número de documento y que tiene solo numeros
-        if (user.getDocumentNumber() == null || user.getDocumentNumber().length() < MINIMUM_DOCUMENT_LENGTH ||!user.getDocumentNumber().matches(DOCUMENT_REGEX)) {
+        if (user.getDocumentNumber() == null || user.getDocumentNumber().length() < MIN_DOCUMENT_LENGTH ||!user.getDocumentNumber().matches(DOCUMENT_REGEX)) {
             throw new ValidationUserException(DOCUMENT_BAD_LENGTH);
         }
 
@@ -113,20 +113,20 @@ public class UserUseCase implements IUserServicePort {
         }
 
         // Validar contraseña
-        if (user.getPassword() == null || user.getPassword().length() < MINIMUM_PASSWORD_LENGTH) {
+        if (user.getPassword() == null || user.getPassword().length() < MIN_PASSWORD_LENGTH) {
             throw new ValidationUserException(PASSWORD_ERROR);
         }
 
         // Validar rol
         if (user.getRole() == null) {
-            throw new ValidationUserException(ROL_ERROR);
+            throw new ValidationUserException(ROLE_ERROR);
         }
     }
 
     //validar si el usuario es mayor de edad
     private boolean isAdult(LocalDate birthDate) {
         LocalDate today = LocalDate.now();
-        return Period.between(birthDate, today).getYears() >= MINIMUM_AGE;
+        return Period.between(birthDate, today).getYears() >= MIN_AGE;
     }
 
 }
