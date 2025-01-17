@@ -21,6 +21,7 @@ public interface UserEntityMapper {
         }
 
         User user = new User();
+        user.setId(userEntity.getId());
         user.setFirstName(userEntity.getFirstName());
         user.setLastName(userEntity.getLastName());
         user.setDocumentNumber(userEntity.getDocumentNumber());
