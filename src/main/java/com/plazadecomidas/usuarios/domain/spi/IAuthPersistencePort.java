@@ -1,7 +1,9 @@
 package com.plazadecomidas.usuarios.domain.spi;
 
-import org.springframework.security.core.Authentication;
+import com.plazadecomidas.usuarios.domain.model.Auth;
+
+import java.util.List;
 
 public interface IAuthPersistencePort {
-    String createToken(Authentication authentication);
+    Auth loginUser(String username, List<String> auths);
 }

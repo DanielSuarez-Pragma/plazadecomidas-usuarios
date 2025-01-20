@@ -12,6 +12,4 @@ public interface IUserPersistencePort {
     User getUser(Long id);//Obtener usuario por ID
     User getUserByEmail(String email);
     void deleteUserById(Long id);//Eliminar usuario por id
-
-
 }

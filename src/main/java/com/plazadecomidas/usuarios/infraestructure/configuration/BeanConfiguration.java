@@ -53,7 +53,7 @@ public class BeanConfiguration {
 
     @Bean
     public IAuthPersistencePort authPersistencePort() {
-        return new AuthJpaAdapter(jwtUtils);
+        return new AuthJpaAdapter(userRepository ,jwtUtils);
     }
 
     @Bean
